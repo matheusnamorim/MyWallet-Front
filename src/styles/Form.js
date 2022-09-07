@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-export default function Form({children, ...otherprops}){
-    return <Wrapp {...otherprops}>{children}</Wrapp>;
+export default function Form({children, heigth,...otherprops}){
+    return <Wrapp heigth={heigth} {...otherprops}>{children}</Wrapp>;
 }
 
 const Wrapp = styled.form`
@@ -58,7 +58,7 @@ const Wrapp = styled.form`
     ion-icon{
         position: absolute;
         right: 35px;
-        top: 90px;
+        top: ${props => props.heigth};
         font-size: 20px;
         color: #000;
         cursor: pointer;

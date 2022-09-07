@@ -2,7 +2,7 @@ import Container from '../../styles/Container';
 import Form from '../../styles/Form';
 import { useState } from 'react';
 
-export default function Login(){
+export default function SignUp(){
 
     const [eye, setEye] = useState('eye-off-outline');
     const [typePassword, setTypePassword] = useState('password');
@@ -22,12 +22,14 @@ export default function Login(){
         <>
             <Container>
                 <h1>MyWallet</h1>
-                <Form onSubmit={(e) => e.preventDefault()} heigth='90px'>
+                <Form onSubmit={(e) => e.preventDefault()} heigth='165px'> 
+                    <input type='text' placeholder='Nome' required/>
                     <input type='email' placeholder='Email' required/>
                     <input type={typePassword} placeholder='Senha' required/>
+                    <input type='password' placeholder='Confirme a senha' required/>
                     <ion-icon onClick={() => showPassword()} name={eye}></ion-icon>
-                    <button>Entrar</button>
-                    <p>Primeira vez? Cadastre-se!</p>
+                    <button>Cadastrar</button>
+                    <p>Já tem uma conta? Entre agora!</p>
                 </Form>
             </Container>
         </>
