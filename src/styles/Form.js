@@ -11,6 +11,7 @@ const Wrapp = styled.form`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
     
     input{
         border: none;
@@ -51,6 +52,15 @@ const Wrapp = styled.form`
         font-size: 15px;
         font-weight: 700;
         color: #FFF;
+        cursor: pointer;
+    }
+
+    ion-icon{
+        position: absolute;
+        right: 35px;
+        top: 90px;
+        font-size: 20px;
+        color: #000;
         cursor: pointer;
     }
 `;
