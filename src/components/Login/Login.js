@@ -1,11 +1,17 @@
 import Container from '../../styles/Container';
 import Form from '../../styles/Form';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { sign_In } from '../services/MyWallet';
+
 export default function Login(){
 
+    const navigate = useNavigate();
     const [eye, setEye] = useState('eye-off-outline');
     const [typePassword, setTypePassword] = useState('password');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [isDisabled, setIsDisabled] = useState(false);
 
     function showPassword(){
         if(typePassword === 'password'){
@@ -18,16 +24,33 @@ export default function Login(){
         }
     }
 
+    function signIn(event){
+        event.preventDefault();
+        setIsDisabled(true);
+
+        setTimeout(function(){
+            sign_In({
+                email,
+                password
+            }).then(() => {
+                navigate('/home');
+            }).catch((error) => {
+                alert(error.response.data);
+                setIsDisabled(false);
+            });
+        }, 1000);
+    }
+
     return (
         <>
             <Container aligner={true}>
                 <h1>MyWallet</h1>
-                <Form onSubmit={(e) => e.preventDefault()} heigth='90px' padding='24px'>
-                    <input type='email' placeholder='Email' required/>
-                    <input type={typePassword} placeholder='Senha' required/>
+                <Form onSubmit={signIn} heigth='90px' padding='24px'>
+                    <input disabled={isDisabled} value={email} onChange={(e) => setEmail(e.target.value)} type='email' placeholder='Email' required/>
+                    <input disabled={isDisabled} value={password} onChange={(e) => setPassword(e.target.value)} type={typePassword} placeholder='Senha' required/>
                     <ion-icon onClick={() => showPassword()} name={eye}></ion-icon>
-                    <button>Entrar</button>
-                    <Link to='/sign-up' style={{ textDecoration: 'none' }}><p>Primeira vez? Cadastre-se!</p></Link>
+                    <button disabled={isDisabled}>Entrar</button>
+                    <p onClick={() => {if(!isDisabled) navigate('/sign-up')}}>Primeira vez? Cadastre-se!</p>
                 </Form>
             </Container>
         </>
