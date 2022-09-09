@@ -1,12 +1,18 @@
 import Container from '../../styles/Container';
 import Form from '../../styles/Form';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignUp(){
 
+    const navigate = useNavigate();
     const [eye, setEye] = useState('eye-off-outline');
     const [typePassword, setTypePassword] = useState('password');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [passwordConfirm, setPasswordConfirm] = useState('');
+    const [isDisabled, setIsDisabled] = useState(false);
 
     function showPassword(){
         if(typePassword === 'password'){
@@ -19,18 +25,29 @@ export default function SignUp(){
         }
     }
 
+    function signUp(event){
+        event.preventDefault();
+        setIsDisabled(true);
+        if(password === passwordConfirm){
+            console.log(name, ' ', email, ' ', password, ' ', passwordConfirm);
+        }else{
+            alert('Senhas não coincidem');
+            setIsDisabled(false);
+        }
+    }
+
     return (
         <>
             <Container aligner={true}>
                 <h1>MyWallet</h1>
-                <Form onSubmit={(e) => e.preventDefault()} heigth='165px' padding='24px'> 
-                    <input type='text' placeholder='Nome' required/>
-                    <input type='email' placeholder='Email' required/>
-                    <input type={typePassword} placeholder='Senha' required/>
-                    <input type='password' placeholder='Confirme a senha' required/>
+                <Form onSubmit={signUp} heigth='165px' padding='24px'> 
+                    <input disabled={isDisabled} value={name} onChange={(e) => setName(e.target.value)} type='text' placeholder='Nome' required/>
+                    <input disabled={isDisabled} value={email} onChange={(e) => setEmail(e.target.value)} type='email' placeholder='Email' required/>
+                    <input disabled={isDisabled} value={password} onChange={(e) => setPassword(e.target.value)} type={typePassword} placeholder='Senha' required/>
+                    <input disabled={isDisabled} value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)} type='password' placeholder='Confirme a senha' required/>
                     <ion-icon onClick={() => showPassword()} name={eye}></ion-icon>
-                    <button>Cadastrar</button>
-                    <Link to='/' style={{ textDecoration: 'none' }}><p>Já tem uma conta? Entre agora!</p></Link>
+                    <button disabled={isDisabled} >Cadastrar</button>
+                    <p onClick={() => {if(!isDisabled) navigate('/')}}>Já tem uma conta? Entre agora!</p>
                 </Form>
             </Container>
         </>
