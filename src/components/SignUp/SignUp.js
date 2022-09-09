@@ -37,11 +37,11 @@ export default function SignUp(){
                     password
                 }).then(() => {
                     navigate('/');
-                }).catch(() => {
-                    alert('Insira os dados novamente');
+                }).catch((error) => {
+                    alert(error.response.data);
                     setIsDisabled(false);
                 });
-            }, 5000);
+            }, 1000);
         }else{
             alert('Senhas não coincidem');
             setIsDisabled(false);
