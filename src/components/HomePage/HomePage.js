@@ -27,7 +27,7 @@ export default function HomePage(){
                             </Link>
                         </NewBtn>
                         <NewBtn>
-                            <Link to='/' style={{ height: '100%', textDecoration: 'none', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                            <Link to='/new-exit' style={{ height: '100%', textDecoration: 'none', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                                 <AiOutlineMinusCircle color="white" size='25px'/>
                                 <p>Nova<br/>saída</p>
                             </Link>

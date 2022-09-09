@@ -31,4 +31,12 @@ const Wrapp = styled.div`
         color: #FFF;
         margin-bottom: 30px;
     }
+
+    h2{
+        margin: 25px 0 40px 0;
+        font-size: 26px;
+        font-family: 'Raleway', sans-serif;
+        font-weight: 700;
+        color: #FFF;
+    }
 `;
