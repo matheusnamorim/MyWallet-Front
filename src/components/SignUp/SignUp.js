@@ -38,7 +38,8 @@ export default function SignUp(){
                 }).then(() => {
                     navigate('/');
                 }).catch((error) => {
-                    alert(error.response.data);
+                    if(error.response.status === 422) alert('Dados inválidos!');
+                    if(error.response.status === 409) alert('Nome ou E-mail em uso!');
                     setIsDisabled(false);
                 });
             }, 1000);

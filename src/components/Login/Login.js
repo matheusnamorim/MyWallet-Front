@@ -35,7 +35,7 @@ export default function Login(){
             }).then(() => {
                 navigate('/home');
             }).catch((error) => {
-                if(error.response.status === 404) alert('Email ou senha inválidos!');
+                if(error.response.status === 404) alert('E-mail ou senha inválidos!');
                 setIsDisabled(false);
             });
         }, 1000);
