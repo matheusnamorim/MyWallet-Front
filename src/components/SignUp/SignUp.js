@@ -2,6 +2,7 @@ import Container from '../../styles/Container';
 import Form from '../../styles/Form';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { sign_Up } from '../services/MyWallet';
 
 export default function SignUp(){
 
@@ -29,7 +30,18 @@ export default function SignUp(){
         event.preventDefault();
         setIsDisabled(true);
         if(password === passwordConfirm){
-            console.log(name, ' ', email, ' ', password, ' ', passwordConfirm);
+            setTimeout(function(){
+                sign_Up({
+                    name,
+                    email,
+                    password
+                }).then(() => {
+                    navigate('/');
+                }).catch(() => {
+                    alert('Insira os dados novamente');
+                    setIsDisabled(false);
+                });
+            }, 5000);
         }else{
             alert('Senhas não coincidem');
             setIsDisabled(false);
