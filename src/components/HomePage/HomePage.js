@@ -1,8 +1,9 @@
 import Container from "../../styles/Container";
 import styled from 'styled-components';
-import {AiOutlineExport} from 'react-icons/ai';
+import {AiFillExclamationCircle, AiOutlineExport} from 'react-icons/ai';
 import {AiOutlinePlusCircle} from 'react-icons/ai';
 import {AiOutlineMinusCircle} from 'react-icons/ai';
+import { Link } from "react-router-dom";
 
 export default function HomePage(){
     return (
@@ -11,18 +12,26 @@ export default function HomePage(){
                 <Wrapp>
                     <Header>
                     <h1>Olá, Fulano</h1>
-                    <AiOutlineExport color="white" size='25px'/>
+                    <Link to='/' style={{ textDecoration: 'none' }}>
+                        <Exit>
+                            <AiOutlineExport color="white" size='25px'/>
+                        </Exit>    
+                    </Link>
                     </Header>
                     <Records>Não há registros de<br/>entrada ou saída</Records>
-                    <Btn>
-                        <div>
-                            <AiOutlinePlusCircle color="white" size='25px'/>
-                            <p>Nova<br/>entrada</p>
-                        </div>
-                        <div>
-                            <AiOutlineMinusCircle color="white" size='25px'/>
-                            <p>Nova<br/>saída</p>
-                        </div>
+                    <Btn>                   
+                        <NewBtn>
+                            <Link to='/new-entry' style={{ height: '100%', textDecoration: 'none', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                                <AiOutlinePlusCircle color="white" size='25px'/>
+                                <p>Nova<br/>entrada</p>
+                            </Link>
+                        </NewBtn>
+                        <NewBtn>
+                            <Link to='/' style={{ height: '100%', textDecoration: 'none', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                                <AiOutlineMinusCircle color="white" size='25px'/>
+                                <p>Nova<br/>saída</p>
+                            </Link>
+                        </NewBtn>
                     </Btn>
                 </Wrapp>
 
@@ -30,6 +39,10 @@ export default function HomePage(){
         </>
     );
 }
+
+const Exit = styled.div`
+    cursor: pointer;
+`;
 
 const Wrapp = styled.div`
     min-height: 100vh;
@@ -51,10 +64,6 @@ const Header = styled.div`
         margin-bottom: 0;
     }
 
-    ion-icon{
-        font-size: 25px;
-        color: #FFF;
-    }
 `;
 
 const Records = styled.div`
@@ -73,17 +82,15 @@ const Btn = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+`;
 
-    div{
-        padding: 10px;
-        width: 48%;
-        height: 114px;
-        border-radius: 5px;
-        background-color: #A328D6;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
+const NewBtn = styled.div`
+    padding: 10px;
+    width: 48%;
+    height: 114px;
+    border-radius: 5px;
+    background-color: #A328D6;
+    cursor: pointer;
 
     p{
         font-weight: 700;

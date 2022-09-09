@@ -23,7 +23,7 @@ export default function SignUp(){
         <>
             <Container aligner={true}>
                 <h1>MyWallet</h1>
-                <Form onSubmit={(e) => e.preventDefault()} heigth='165px'> 
+                <Form onSubmit={(e) => e.preventDefault()} heigth='165px' padding='24px'> 
                     <input type='text' placeholder='Nome' required/>
                     <input type='email' placeholder='Email' required/>
                     <input type={typePassword} placeholder='Senha' required/>

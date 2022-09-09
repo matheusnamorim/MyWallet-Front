@@ -22,7 +22,7 @@ export default function Login(){
         <>
             <Container aligner={true}>
                 <h1>MyWallet</h1>
-                <Form onSubmit={(e) => e.preventDefault()} heigth='90px'>
+                <Form onSubmit={(e) => e.preventDefault()} heigth='90px' padding='24px'>
                     <input type='email' placeholder='Email' required/>
                     <input type={typePassword} placeholder='Senha' required/>
                     <ion-icon onClick={() => showPassword()} name={eye}></ion-icon>

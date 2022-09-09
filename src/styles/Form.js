@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-export default function Form({children, heigth,...otherprops}){
-    return <Wrapp heigth={heigth} {...otherprops}>{children}</Wrapp>;
+export default function Form({children, padding, heigth,...otherprops}){
+    return <Wrapp heigth={heigth} padding={padding} {...otherprops}>{children}</Wrapp>;
 }
 
 const Wrapp = styled.form`
-    padding: 0 24px;
+    padding: 0 ${props => props.padding};
     width: 100%;
     display: flex;
     flex-direction: column;
