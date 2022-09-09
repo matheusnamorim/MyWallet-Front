@@ -1,6 +1,7 @@
 import Container from '../../styles/Container';
 import Form from '../../styles/Form';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function SignUp(){
 
@@ -20,7 +21,7 @@ export default function SignUp(){
 
     return (
         <>
-            <Container>
+            <Container aligner={true}>
                 <h1>MyWallet</h1>
                 <Form onSubmit={(e) => e.preventDefault()} heigth='165px'> 
                     <input type='text' placeholder='Nome' required/>
@@ -29,7 +30,7 @@ export default function SignUp(){
                     <input type='password' placeholder='Confirme a senha' required/>
                     <ion-icon onClick={() => showPassword()} name={eye}></ion-icon>
                     <button>Cadastrar</button>
-                    <p>Já tem uma conta? Entre agora!</p>
+                    <Link to='/' style={{ textDecoration: 'none' }}><p>Já tem uma conta? Entre agora!</p></Link>
                 </Form>
             </Container>
         </>
