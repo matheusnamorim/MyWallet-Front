@@ -22,7 +22,7 @@ export default function HomePage(){
             .then((data) => {
                 setUser(data.data);
         }).catch((error) => {
-            if(error.response.status === 401) alert('Usuário não possui Autorização!');
+            if(error.response.status === 401) alert('Usuário não Autenticado!');
             navigate('/');
         });
     });

@@ -37,7 +37,7 @@ export default function Login(){
                 localStorage.setItem('mywallet', dadosSerializados);
                 navigate('/home');
             }).catch((error) => {
-                if(error.response.status === 404) alert('E-mail ou senha inválidos!');
+                if(error.response.status === 401) alert('Usuário não autenticado!');
                 if(error.response.status === 422) alert('Dados inválidos!');
                 setIsDisabled(false);
             });

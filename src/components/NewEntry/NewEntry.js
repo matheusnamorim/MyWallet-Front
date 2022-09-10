@@ -3,9 +3,11 @@ import Form from "../../styles/Form";
 import { registerEntrys } from "../services/MyWallet";
 import { useState } from 'react';
 import { valueMask } from "../maskValue";
+import { useNavigate } from "react-router-dom";
 
 export default function NewEntry(){
 
+    const navigate = useNavigate();
     const [value, setValue] = useState('');
     const [description, setDescription] = useState('');
     const [isDisabled, setIsDisabled] = useState(false);
@@ -13,6 +15,23 @@ export default function NewEntry(){
     function register(event){
         event.preventDefault();
         setIsDisabled(true);
+
+        setTimeout(function(){
+            registerEntrys({
+                value,
+                description,
+                type: 'entry'
+            }).then(() => {
+                navigate('/home');
+            }).catch((error) => {
+                if(error.response.status === 401) {
+                    alert('Usuário não autenticado');
+                    navigate('/'); 
+                }
+                if(error.response.status === 422) alert('Dados inválidos!');
+                setIsDisabled(false);
+            });
+        }, 1000);
     }
 
     return (
