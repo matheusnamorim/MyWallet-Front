@@ -4,21 +4,35 @@ import {AiFillExclamationCircle, AiOutlineExport} from 'react-icons/ai';
 import {AiOutlinePlusCircle} from 'react-icons/ai';
 import {AiOutlineMinusCircle} from 'react-icons/ai';
 import { useNavigate, Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { infos } from "../services/MyWallet";
 
 export default function HomePage(){
 
     const navigate = useNavigate();
+    const [user, setUser] = useState({});
+
     function logOut(){
         localStorage.setItem('mywallet', JSON.stringify());
         navigate('/');
     }
+
+    useEffect(() => {
+        infos()
+            .then((data) => {
+                setUser(data.data);
+        }).catch((error) => {
+            if(error.response.status === 401) alert('Usuário não possui Autorização!');
+            navigate('/');
+        });
+    });
 
     return (
         <>
             <Container padding={true}>
                 <Wrapp>
                     <Header>
-                    <h1>Olá, Fulano</h1>
+                    <h1>Olá, {user.name}</h1>
                     <Exit onClick={() => logOut()}>
                         <AiOutlineExport color="white" size='25px'/>
                     </Exit>    
