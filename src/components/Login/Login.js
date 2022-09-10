@@ -32,10 +32,13 @@ export default function Login(){
             sign_In({
                 email,
                 password
-            }).then(() => {
+            }).then((data) => {
+                const dadosSerializados = JSON.stringify(data.data);
+                localStorage.setItem('mywallet', dadosSerializados);
                 navigate('/home');
             }).catch((error) => {
                 if(error.response.status === 404) alert('E-mail ou senha inválidos!');
+                if(error.response.status === 422) alert('Dados inválidos!');
                 setIsDisabled(false);
             });
         }, 1000);

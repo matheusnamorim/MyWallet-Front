@@ -3,20 +3,25 @@ import styled from 'styled-components';
 import {AiFillExclamationCircle, AiOutlineExport} from 'react-icons/ai';
 import {AiOutlinePlusCircle} from 'react-icons/ai';
 import {AiOutlineMinusCircle} from 'react-icons/ai';
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function HomePage(){
+
+    const navigate = useNavigate();
+    function logOut(){
+        localStorage.setItem('mywallet', JSON.stringify());
+        navigate('/');
+    }
+
     return (
         <>
             <Container padding={true}>
                 <Wrapp>
                     <Header>
                     <h1>Olá, Fulano</h1>
-                    <Link to='/' style={{ textDecoration: 'none' }}>
-                        <Exit>
-                            <AiOutlineExport color="white" size='25px'/>
-                        </Exit>    
-                    </Link>
+                    <Exit onClick={() => logOut()}>
+                        <AiOutlineExport color="white" size='25px'/>
+                    </Exit>    
                     </Header>
                     <Records>Não há registros de<br/>entrada ou saída</Records>
                     <Btn>                   
