@@ -26,4 +26,10 @@ function infos(){
     return promise;
 }
 
-export {sign_Up, sign_In, infos};
+function registerEntrys(body){
+    const config = createHeaders();
+    const promise = axios.post(`${BASE_URL}/releases`, body, config);
+    return promise;
+}
+
+export {sign_Up, sign_In, infos, registerEntrys};

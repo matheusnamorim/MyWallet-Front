@@ -1,6 +1,6 @@
 import Container from "../../styles/Container";
 import styled from 'styled-components';
-import {AiFillExclamationCircle, AiOutlineExport} from 'react-icons/ai';
+import {AiOutlineExport} from 'react-icons/ai';
 import {AiOutlinePlusCircle} from 'react-icons/ai';
 import {AiOutlineMinusCircle} from 'react-icons/ai';
 import { useNavigate, Link } from "react-router-dom";
@@ -13,7 +13,7 @@ export default function HomePage(){
     const [user, setUser] = useState({});
 
     function logOut(){
-        localStorage.setItem('mywallet', JSON.stringify());
+        localStorage.setItem('mywallet', JSON.stringify(''));
         navigate('/');
     }
 
