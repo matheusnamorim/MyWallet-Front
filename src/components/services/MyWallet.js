@@ -32,4 +32,10 @@ function registerEntrys(body){
     return promise;
 }
 
-export {sign_Up, sign_In, infos, registerEntrys};
+function listEntrys(){
+    const config = createHeaders();
+    const promise = axios.get(`${BASE_URL}/releases`, config);
+    return promise;
+}
+
+export {sign_Up, sign_In, infos, registerEntrys, listEntrys};
