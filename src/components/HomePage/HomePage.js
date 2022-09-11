@@ -14,6 +14,7 @@ export default function HomePage(){
     const [user, setUser] = useState({});
     const [list, setList] = useState([]);
     const [thereReleases, setThereReleases] = useState(true);
+    let summation;
 
     function logOut(){
         localStorage.setItem('mywallet', JSON.stringify(''));
@@ -29,17 +30,25 @@ export default function HomePage(){
             navigate('/');
         });
 
-        listEntrys(
-        ).then((data) => {
+        listEntrys()
+            .then((data) => {
             setList([...data.data]);
             if(data.data.length === 0) setThereReleases(false);
+            sum();
         }).catch((error) => {
             if(error.response.status === 401) alert('Usuário não Autenticado!');
             navigate('/');
         });
     }, []);
 
-
+    function sum(){
+        summation = list.reduce((previousValue, currentValue) => {
+            const subsComma = parseFloat(currentValue.value.replace(',', '.'));
+            if(currentValue.type === 'entry') return previousValue + subsComma;
+            else return previousValue - subsComma;
+        }, 0); 
+    }
+    sum();
     return (
         <>
             <Container padding={true}>
@@ -54,7 +63,10 @@ export default function HomePage(){
                             {thereReleases ? 
                                 <Records>
                                     {list.map((value, index) => <ListReleases value={value} key={index}/>)}
-                                    <Balance>SALDO</Balance>
+                                    <Balance>
+                                        <p>SALDO</p>
+                                        {summation.toFixed(2)}
+                                    </Balance>
                                 </Records>
                             : <Records><NoReleases><p>Não há registros de<br/>entrada ou saída</p></NoReleases></Records>}
                     <Btn>                   
@@ -115,10 +127,15 @@ const Records = styled.div`
 `;
 
 const Balance = styled.div`
+    display: flex;
+    justify-content: space-between;
     margin-top: 15px;
-    width: 100%;
-    font-weight: 700;
-    color: #000;
+
+    p{
+        width: 100%;
+        font-weight: 700;
+        color: #000;
+    }
 `;
 
 

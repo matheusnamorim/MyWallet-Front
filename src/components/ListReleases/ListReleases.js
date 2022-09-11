@@ -5,18 +5,18 @@ import { useState, useEffect } from 'react';
 export default function ListReleases({value}){
     const [typeEntry, setTypeEntry] = useState('');
 
-
     useEffect(() => {
         if(value.type === 'entry') setTypeEntry('1');
         if(value.type === 'exit') setTypeEntry('2');
     }, []);
     
-    function Value(price){
-        console.log((price.replace(',', '')));
+    function Value(price){ 
+        let newPrice = price;
         if(price.length <= 2){
-           return price+',00'; 
+            newPrice = price+',00';
         }
-        return price;
+        
+        return newPrice;
     }
 
     return (
