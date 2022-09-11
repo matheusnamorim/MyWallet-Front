@@ -74,7 +74,9 @@ export default function HomePage(){
                         
                             {thereReleases ? 
                                 <Records>
-                                    {list.map((value, index) => <ListReleases value={value} key={index}/>)}
+                                    <div>
+                                        {list.map((value, index) => <ListReleases value={value} key={index}/>)}
+                                    </div>
                                     <Balance>
                                         <h1>SALDO</h1>
                                         {typeBalance ? <Green>{summation.toFixed(2)}</Green>
@@ -136,6 +138,7 @@ const Records = styled.div`
     color: #868686;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     overflow: scroll;
 `;
 
@@ -149,6 +152,7 @@ const Balance = styled.div`
         font-family: 'Raleway', sans-serif;;
         font-weight: 700;
         font-size: 17px;
+        margin: 0 0;
         color: #000;
     }
 `;
