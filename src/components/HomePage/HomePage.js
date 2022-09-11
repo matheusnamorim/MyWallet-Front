@@ -14,7 +14,8 @@ export default function HomePage(){
     const [user, setUser] = useState({});
     const [list, setList] = useState([]);
     const [thereReleases, setThereReleases] = useState(true);
-    let summation;
+    const [typeBalance, setTypeBalance] = useState(true);
+    const [summation, setSummation] = useState(0);
 
     function logOut(){
         localStorage.setItem('mywallet', JSON.stringify(''));
@@ -32,23 +33,34 @@ export default function HomePage(){
 
         listEntrys()
             .then((data) => {
-            setList([...data.data]);
-            if(data.data.length === 0) setThereReleases(false);
-            sum();
+            if(data.data.length === 0) {
+                setThereReleases(false);
+                setList([...data.data]);
+            }
+            else {
+                setList([...data.data]);
+                sum(data);
+            } 
         }).catch((error) => {
-            if(error.response.status === 401) alert('Usuário não Autenticado!');
+            if(error.response.status === 401) alert('Usuário não autenticado!');
             navigate('/');
         });
+
     }, []);
 
-    function sum(){
-        summation = list.reduce((previousValue, currentValue) => {
+    function sum(data){
+        const temp = data.data.reduce((previousValue, currentValue) => {
             const subsComma = parseFloat(currentValue.value.replace(',', '.'));
             if(currentValue.type === 'entry') return previousValue + subsComma;
             else return previousValue - subsComma;
         }, 0); 
+        setSummation(Math.abs(temp));
+        if(temp < 0) {
+            setTypeBalance(false);
+        }
+        else setTypeBalance(true);
     }
-    sum();
+
     return (
         <>
             <Container padding={true}>
@@ -64,8 +76,9 @@ export default function HomePage(){
                                 <Records>
                                     {list.map((value, index) => <ListReleases value={value} key={index}/>)}
                                     <Balance>
-                                        <p>SALDO</p>
-                                        {summation.toFixed(2)}
+                                        <h1>SALDO</h1>
+                                        {typeBalance ? <Green>{summation.toFixed(2)}</Green>
+                                        : <Red>{summation.toFixed(2)}</Red>}
                                     </Balance>
                                 </Records>
                             : <Records><NoReleases><p>Não há registros de<br/>entrada ou saída</p></NoReleases></Records>}
@@ -130,14 +143,25 @@ const Balance = styled.div`
     display: flex;
     justify-content: space-between;
     margin-top: 15px;
+    width: 100%;
 
-    p{
-        width: 100%;
+    h1{
+        font-family: 'Raleway', sans-serif;;
         font-weight: 700;
+        font-size: 17px;
         color: #000;
     }
 `;
 
+const Green = styled.p`
+    font-weight: 400;
+    color: #03AC00;
+`;
+
+const Red = styled.p`
+    font-weight: 400;
+    color: #C70000;
+`;
 
 const NoReleases = styled.div`
     width: 100%;
