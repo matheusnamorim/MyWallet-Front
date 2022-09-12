@@ -32,6 +32,13 @@ const Wrapp = styled.div`
         margin-bottom: 30px;
     }
 
+    h3{
+        font-family: 'Saira Stencil One', cursive;
+        text-align: center;
+        font-size: 50px;
+        color: #FFF;
+    }
+
     h2{
         margin: 25px 0 40px 0;
         font-size: 26px;

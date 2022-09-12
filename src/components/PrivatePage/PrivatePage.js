@@ -1,3 +1,4 @@
+import WhithoutPermission from "../WhithoutPermission/WhithoutPermission";
 
 export default function PrivatePage({children}){
 
@@ -6,6 +7,6 @@ export default function PrivatePage({children}){
     if(auth){
         return <>{children}</>;
     }else{
-        return <></>;
+        return <WhithoutPermission />;
     }
 }
