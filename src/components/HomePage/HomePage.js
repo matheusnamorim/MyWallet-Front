@@ -16,6 +16,7 @@ export default function HomePage(){
     const [thereReleases, setThereReleases] = useState(true);
     const [typeBalance, setTypeBalance] = useState(true);
     const [summation, setSummation] = useState(0);
+    const [reload, setReload] = useState('');
 
     function logOut(){
         localStorage.setItem('mywallet', JSON.stringify(''));
@@ -35,18 +36,17 @@ export default function HomePage(){
             .then((data) => {
             if(data.data.length === 0) {
                 setThereReleases(false);
-                setList([...data.data]);
+                setList(data.data);
             }
             else {
-                setList([...data.data]);
+                setList(data.data);
                 sum(data);
             } 
         }).catch((error) => {
             if(error.response.status === 401) alert('Usuário não autenticado!');
             navigate('/');
         });
-
-    }, []);
+    }, [reload]);
 
     function sum(data){
         const temp = data.data.reduce((previousValue, currentValue) => {
@@ -60,7 +60,6 @@ export default function HomePage(){
         }
         else setTypeBalance(true);
     }
-
     return (
         <>
             <Container padding={true}>
@@ -75,7 +74,7 @@ export default function HomePage(){
                             {thereReleases ? 
                                 <Records>
                                     <div>
-                                        {list.map((value, index) => <ListReleases value={value} key={index}/>)}
+                                        {list.map((value, index) => <ListReleases value={value} key={index} reload={reload} setReload={setReload} index={index} array={list}/>)}
                                     </div>
                                     <Balance>
                                         <h1>SALDO</h1>

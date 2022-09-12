@@ -38,4 +38,10 @@ function listEntrys(){
     return promise;
 }
 
-export {sign_Up, sign_In, infos, registerEntrys, listEntrys};
+function deleteReleases(body){
+    const config = createHeaders();
+    const promise = axios.delete(`${BASE_URL}/releases/${body}`, config);
+    return promise;
+}   
+
+export {sign_Up, sign_In, infos, registerEntrys, listEntrys, deleteReleases};
