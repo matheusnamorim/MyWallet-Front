@@ -4,6 +4,7 @@ import { registerEntrys } from "../services/MyWallet";
 import { useState } from 'react';
 import { valueMask } from "../maskValue";
 import { useNavigate } from "react-router-dom";
+import { IoArrowBackCircleOutline } from "react-icons/io5";
 
 export default function NewExit(){
 
@@ -38,6 +39,7 @@ export default function NewExit(){
         <>
             <Container padding={true}>
                 <h2>Nova saída</h2>
+                <span onClick={()=> navigate('/home')}><IoArrowBackCircleOutline size='30px' color='#FFF'/></span>
                 <Form onSubmit={register}>
                     <input disabled={isDisabled} value={value} onChange={(e) => setValue(valueMask(e.target.value))} placeholder='Valor' required/>
                     <input disabled={isDisabled} value={description} onChange={(e) => setDescription(e.target.value)} type='text' placeholder='Descrição' required/>

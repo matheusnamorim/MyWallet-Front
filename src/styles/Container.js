@@ -39,4 +39,10 @@ const Wrapp = styled.div`
         font-weight: 700;
         color: #FFF;
     }
+
+    span{
+        position: fixed;
+        right: 20px;
+        top: 20px;
+    }
 `;
