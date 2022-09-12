@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { valueMask } from "../maskValue";
 import { useNavigate } from "react-router-dom";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function NewExit(){
 
@@ -12,13 +13,15 @@ export default function NewExit(){
     const [value, setValue] = useState('');
     const [description, setDescription] = useState('');
     const [isDisabled, setIsDisabled] = useState(false);
+    const [msgbtn, setMsgBtn] = useState('Salvar saída');
 
     function register(event){
         event.preventDefault();
         setIsDisabled(true);
-        
-        if(Number(value.replace(',', '')) !== 0){
-            setTimeout(function(){
+        setMsgBtn(<ThreeDots color="#FFF" height={45} width={45} />);
+
+        setTimeout(function(){
+            if(Number(value.replace(',', '')) !== 0){
                 registerEntrys({
                     value,
                     description,
@@ -32,12 +35,14 @@ export default function NewExit(){
                     }
                     if(error.response.status === 422) alert('Dados inválidos!');
                     setIsDisabled(false);
+                    setMsgBtn('Salvar saída');
                 });
-            }, 1000);
-        }else{
-            alert('Dados inválidos!');
-            setIsDisabled(false);
-        }   
+            }else{
+                alert('Dados inválidos!');
+                setIsDisabled(false);
+                setMsgBtn('Salvar saída');
+            }   
+        }, 1000);
     }
 
     return (
@@ -45,10 +50,10 @@ export default function NewExit(){
             <Container padding={true}>
                 <h2>Nova saída</h2>
                 <span onClick={()=> navigate('/home')}><IoArrowBackCircleOutline size='30px' color='#FFF'/></span>
-                <Form onSubmit={register}>
+                <Form onSubmit={register} disabled={isDisabled}>
                     <input disabled={isDisabled} value={value} onChange={(e) => setValue(valueMask(e.target.value))} placeholder='Valor' required/>
                     <input disabled={isDisabled} value={description} onChange={(e) => setDescription(e.target.value)} type='text' maxLength={25} placeholder='Descrição' required/>
-                    <button disabled={isDisabled}>Salvar saída</button>
+                    <button disabled={isDisabled}>{msgbtn}</button>
                 </Form>
             </Container>
         </>

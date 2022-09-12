@@ -3,6 +3,7 @@ import Form from '../../styles/Form';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { sign_In } from '../services/MyWallet';
+import { ThreeDots } from "react-loader-spinner";
 
 export default function Login(){
 
@@ -12,6 +13,7 @@ export default function Login(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isDisabled, setIsDisabled] = useState(false);
+    const [msgbtn, setMsgBtn] = useState('Entrar');
 
     function showPassword(){
         if(typePassword === 'password'){
@@ -27,6 +29,7 @@ export default function Login(){
     function signIn(event){
         event.preventDefault();
         setIsDisabled(true);
+        setMsgBtn(<ThreeDots color="#FFF" height={45} width={45} />);
 
         setTimeout(function(){
             sign_In({
@@ -41,6 +44,7 @@ export default function Login(){
                 if(error.response.status === 422) alert('Dados inválidos!');
                 if(error.response.status === 404) alert('Usuário ou senha incorretos!');
                 setIsDisabled(false);
+                setMsgBtn('Entrar');
             });
         }, 1000);
     }
@@ -49,11 +53,11 @@ export default function Login(){
         <>
             <Container aligner={true}>
                 <h1>MyWallet</h1>
-                <Form onSubmit={signIn} heigth='90px' padding='24px'>
+                <Form onSubmit={signIn} heigth='90px' padding='24px' disabled={isDisabled}>
                     <input disabled={isDisabled} value={email} onChange={(e) => setEmail(e.target.value)} type='email' placeholder='Email' required/>
                     <input disabled={isDisabled} value={password} onChange={(e) => setPassword(e.target.value)} type={typePassword} placeholder='Senha' required/>
                     <ion-icon onClick={() => showPassword()} name={eye}></ion-icon>
-                    <button disabled={isDisabled}>Entrar</button>
+                    <button disabled={isDisabled}>{msgbtn}</button>
                     <p onClick={() => {if(!isDisabled) navigate('/sign-up')}}>Primeira vez? Cadastre-se!</p>
                 </Form>
             </Container>

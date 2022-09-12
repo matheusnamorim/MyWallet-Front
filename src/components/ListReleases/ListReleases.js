@@ -59,7 +59,7 @@ export default function ListReleases({value, reload, setReload, index, array}){
         <Wrapp>
             <div>
                 <StylesValue date={true}>{value.date}</StylesValue>
-                <StylesValue onClick={() => editValue(value)} description={true}>{value.description}</StylesValue>
+                <StylesValue style={{cursor: 'pointer'}} onClick={() => editValue(value)} description={true}>{value.description}</StylesValue>
             </div>
             <div>
                 <StylesValue type={typeEntry}>{Value(value.value)}</StylesValue>

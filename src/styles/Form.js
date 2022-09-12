@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-export default function Form({children, padding, heigth,...otherprops}){
-    return <Wrapp heigth={heigth} padding={padding} {...otherprops}>{children}</Wrapp>;
+export default function Form({children, padding, heigth, disabled,...otherprops}){
+    return <Wrapp heigth={heigth} padding={padding} disabled={disabled} {...otherprops}>{children}</Wrapp>;
 }
 
 const Wrapp = styled.form`
@@ -17,7 +17,7 @@ const Wrapp = styled.form`
         border: none;
         width: 100%;
         height: 58px;
-        background-color: #fff;   //c295e4
+        background-color: ${props => props.disabled ? '#c295e4' : '#fff'};  //c295e4
         border-radius: 5px;
         font-family: 'Raleway', sans-serif;
 	    font-weight: 400;
@@ -36,7 +36,7 @@ const Wrapp = styled.form`
         border: none;
         width: 100%;
         height: 46px;
-        background-color: #A328D6;
+        background-color: ${props => props.disabled ? '#c295e4' : '#A328D6'};
         display: flex;
         align-items: center;
         justify-content: center;
