@@ -17,21 +17,26 @@ export default function EditEntry(){
         event.preventDefault();
         setIsDisabled(true);
         
-        updateRegister({
-            id: state.id,
-            value,
-            description,
-            type: 'entry'
-        }).then(() => {
-            navigate('/home');
-        }).catch((error) => {
-            if(error.response.status === 401) {
-                alert('Usuário não autenticado');
-                navigate('/'); 
-            }
-            if(error.response.status === 422) alert('Dados inválidos!');
+        if(Number(value.replace(',', '')) !== 0){
+            updateRegister({
+                id: state.id,
+                value,
+                description,
+                type: 'entry'
+            }).then(() => {
+                navigate('/home');
+            }).catch((error) => {
+                if(error.response.status === 401) {
+                    alert('Usuário não autenticado');
+                    navigate('/'); 
+                }
+                if(error.response.status === 422) alert('Dados inválidos!');
+                setIsDisabled(false);
+            });
+        }else{
+            alert('Dados inválidos!');
             setIsDisabled(false);
-        });
+        }
     }
 
     return (

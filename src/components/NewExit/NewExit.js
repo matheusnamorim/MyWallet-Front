@@ -16,23 +16,28 @@ export default function NewExit(){
     function register(event){
         event.preventDefault();
         setIsDisabled(true);
-
-        setTimeout(function(){
-            registerEntrys({
-                value,
-                description,
-                type: 'exit'
-            }).then(()=>{
-                navigate('/home');
-            }).catch((error) => {
-                if(error.response.status === 401) {
-                    alert('Usuário não autenticado');
-                    navigate('/'); 
-                }
-                if(error.response.status === 422) alert('Dados inválidos!');
-                setIsDisabled(false);
-            });
-        }, 1000);
+        
+        if(Number(value.replace(',', '')) !== 0){
+            setTimeout(function(){
+                registerEntrys({
+                    value,
+                    description,
+                    type: 'exit'
+                }).then(()=>{
+                    navigate('/home');
+                }).catch((error) => {
+                    if(error.response.status === 401) {
+                        alert('Usuário não autenticado');
+                        navigate('/'); 
+                    }
+                    if(error.response.status === 422) alert('Dados inválidos!');
+                    setIsDisabled(false);
+                });
+            }, 1000);
+        }else{
+            alert('Dados inválidos!');
+            setIsDisabled(false);
+        }   
     }
 
     return (

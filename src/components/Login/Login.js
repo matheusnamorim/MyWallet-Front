@@ -39,6 +39,7 @@ export default function Login(){
             }).catch((error) => {
                 if(error.response.status === 401) alert('Usuário não autenticado!');
                 if(error.response.status === 422) alert('Dados inválidos!');
+                if(error.response.status === 404) alert('Usuário ou senha incorretos!');
                 setIsDisabled(false);
             });
         }, 1000);

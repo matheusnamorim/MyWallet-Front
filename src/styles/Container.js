@@ -5,7 +5,7 @@ export default function Container({children, padding, aligner}){
 }
 
 const Wrapp = styled.div`
-    min-height: 100vh;
+    height: 100%;
     width: 100%;
 
     ${(props) => {
@@ -16,11 +16,15 @@ const Wrapp = styled.div`
         }
         if(props.aligner){
             return`
+                height: 100vh;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
             `;
+        }
+        if(props.center){
+            return`background-color: black`;
         }
     }}
 
