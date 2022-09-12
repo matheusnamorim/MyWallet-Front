@@ -42,7 +42,7 @@ export default function NewExit(){
                 <span onClick={()=> navigate('/home')}><IoArrowBackCircleOutline size='30px' color='#FFF'/></span>
                 <Form onSubmit={register}>
                     <input disabled={isDisabled} value={value} onChange={(e) => setValue(valueMask(e.target.value))} placeholder='Valor' required/>
-                    <input disabled={isDisabled} value={description} onChange={(e) => setDescription(e.target.value)} type='text' placeholder='Descrição' required/>
+                    <input disabled={isDisabled} value={description} onChange={(e) => setDescription(e.target.value)} type='text' maxLength={25} placeholder='Descrição' required/>
                     <button disabled={isDisabled}>Salvar saída</button>
                 </Form>
             </Container>

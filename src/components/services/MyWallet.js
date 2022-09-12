@@ -44,4 +44,18 @@ function deleteReleases(body){
     return promise;
 }   
 
-export {sign_Up, sign_In, infos, registerEntrys, listEntrys, deleteReleases};
+function findRegister(body){
+    const config = createHeaders();
+    const promise = axios.get(`${BASE_URL}/releases/${body}`, config);
+    return promise;
+}
+
+function updateRegister(body){
+    const config = createHeaders();
+    const id = body.id;
+    delete body.id;
+    const promise = axios.put(`${BASE_URL}/releases/${id}`, body, config);
+    return promise;
+}
+
+export {sign_Up, sign_In, infos, registerEntrys, listEntrys, deleteReleases, findRegister, updateRegister};

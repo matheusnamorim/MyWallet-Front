@@ -17,7 +17,7 @@ const Wrapp = styled.form`
         border: none;
         width: 100%;
         height: 58px;
-        background-color: #FFF;
+        background-color: #fff;   //c295e4
         border-radius: 5px;
         font-family: 'Raleway', sans-serif;
 	    font-weight: 400;

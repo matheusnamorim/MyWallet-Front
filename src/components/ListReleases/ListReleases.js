@@ -2,7 +2,7 @@ import styled from  'styled-components';
 import StylesValue from '../../styles/StylesValue';
 import { useState, useEffect } from 'react';
 import { TiDelete } from 'react-icons/ti'
-import { deleteReleases } from '../services/MyWallet';
+import { deleteReleases, findRegister } from '../services/MyWallet';
 import { useNavigate } from 'react-router-dom';
 
 export default function ListReleases({value, reload, setReload, index, array}){
@@ -11,8 +11,10 @@ export default function ListReleases({value, reload, setReload, index, array}){
 
     useEffect(() => {
         if(value._id === reload) {
-            if(array[index+1].type === 'entry') setTypeEntry('1');
-            if(array[index+1].type === 'exit') setTypeEntry('2');
+            if(array[index+1] !== undefined){
+                if(array[index+1].type === 'entry') setTypeEntry('1');
+                if(array[index+1].type === 'exit') setTypeEntry('2');
+            }
             return;
         }
         if(value.type === 'entry') setTypeEntry('1');
@@ -38,16 +40,26 @@ export default function ListReleases({value, reload, setReload, index, array}){
                 navigate('/');
             });
         }
-
-
     }   
+
+    function editValue(value){
+        findRegister(
+            value._id
+        ).then((data) => {
+            if(value.type === 'entry') navigate('/edit-entry', {state: {id: value._id, value: data.data[0].value, description: data.data[0].description}});
+            else navigate('/edit-exit', {state: {id: value._id, value: data.data[0].value, description: data.data[0].description}});
+        }).catch((error) => {
+            if(error.response.status === 401) alert('Usuário não autenticado!');
+            navigate('/');
+        });
+    }
 
     return (
         <>
         <Wrapp>
             <div>
                 <StylesValue date={true}>{value.date}</StylesValue>
-                <StylesValue description={true}>{value.description}</StylesValue>
+                <StylesValue onClick={() => editValue(value)} description={true}>{value.description}</StylesValue>
             </div>
             <div>
                 <StylesValue type={typeEntry}>{Value(value.value)}</StylesValue>
