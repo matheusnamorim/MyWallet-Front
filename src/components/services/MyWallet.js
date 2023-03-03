@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://mywalletamorim.herokuapp.com';
+const BASE_URL = 'https://mywallet-api-tpwx.onrender.com';
 
 function createHeaders() {
     const auth = JSON.parse(localStorage.getItem('mywallet'));
